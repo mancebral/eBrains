@@ -122,24 +122,70 @@
 
   <!-- VALENCE -->
   <div class="slider-block">
-    <div>Valence</div>
-    <div class="emoji-row"><span>😢</span><span>😄</span></div>
-    <input type="range" id="valence" min="0" max="1" step="0.01" value="0.5">
+  <h3>Valence
+    <span class="info-icon" 
+          onmouseover="showInfo('info-valence')" 
+          onmouseout="hideInfo('info-valence')"
+          ontouchstart="showInfo('info-valence')" 
+          ontouchend="hideInfo('info-valence')">
+      i
+    </span>
+  </h3>
+
+  <div class="slider">
+    <span class="slider-label-emoji">😢</span>
+    <input type="range" id="valence" min="-1" max="1" step="0.01" value="0">
+    <span class="slider-label-emoji">😄</span>
   </div>
 
-  <!-- AROUSAL -->
+  <div id="info-valence" class="tooltip">
+    Valence representa el nivel emocional desde negativo (triste/frustrado) hasta positivo (feliz/exaltado).
+  </div>
+</div>
+
   <div class="slider-block">
-    <div>Arousal</div>
-    <div class="emoji-row"><span>😴</span><span>🤩</span></div>
-    <input type="range" id="arousal" min="0" max="1" step="0.01" value="0.5">
+  <h3>Arousal
+    <span class="info-icon" 
+          onmouseover="showInfo('info-arousal')" 
+          onmouseout="hideInfo('info-arousal')"
+          ontouchstart="showInfo('info-arousal')" 
+          ontouchend="hideInfo('info-arousal')">
+      i
+    </span>
+  </h3>
+
+  <div class="slider">
+    <span class="slider-label-emoji">😴</span>
+    <input type="range" id="arousal" min="-1" max="1" step="0.01" value="0">
+    <span class="slider-label-emoji">🤩</span>
   </div>
 
-  <!-- DOMINANCE -->
-  <div class="slider-block">
-    <div>Dominance</div>
-    <div class="emoji-row"><span>😰</span><span>😎</span></div>
-    <input type="range" id="dominance" min="0" max="1" step="0.01" value="0.5">
+  <div id="info-arousal" class="tooltip">
+    Valence representa el nivel emocional desde negativo (triste/frustrado) hasta positivo (feliz/exaltado).
   </div>
+</div>
+
+  <div class="slider-block">
+  <h3>Dominance
+    <span class="info-icon" 
+          onmouseover="showInfo('info-dominance')" 
+          onmouseout="hideInfo('info-dominance')"
+          ontouchstart="showInfo('info-dominance')" 
+          ontouchend="hideInfo('info-dominance')">
+      i
+    </span>
+  </h3>
+
+  <div class="slider">
+    <span class="slider-label-emoji">😰</span>
+    <input type="range" id="dominance" min="-1" max="1" step="0.01" value="0">
+    <span class="slider-label-emoji">😎</span>
+  </div>
+
+  <div id="info-dominance" class="tooltip">
+    Valence representa el nivel emocional desde negativo (triste/frustrado) hasta positivo (feliz/exaltado).
+  </div>
+</div>
 
   <!-- SEND -->
   <button id="sendButton">Share in real-time!</button>
@@ -202,6 +248,7 @@ document.getElementById("sendButton").addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
 
