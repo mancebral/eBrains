@@ -1,188 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Collective Emotions</title>
+<meta charset="UTF-8" />
+<title>eBrains Live</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-body {
-  background: linear-gradient(to bottom, #FF7E5F, #FD3A69, #FFA17F);
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  color: white;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+  body {
+    background: linear-gradient(to bottom, #FF7E5F, #FD3A69, #FFA17F);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
 
-/* Contenedor principal sin sombra */
-.container {
-  padding: 20px;
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
+  h1 {
+    margin-top: 10px;
+    font-size: 2.2rem;
+  }
 
-/* Título */
-h1 {
-  text-align: center;
-  margin-top: 0;
-  font-size: 2rem;
-}
+  .slider-block {
+    margin-top: 20px;
+    font-size: 1.5rem;
+  }
 
-/* Pregunta */
-.subtitle {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 1.1rem;
-}
+  .emoji-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.2rem;
+    margin-bottom: -10px;
+  }
 
-/* Bloque slider */
-.slider-block {
-  margin: 25px 0;
-}
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 3px;
+  }
 
-.slider-block label {
-  display: block;
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 3px;
+  }
 
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.8rem;
-  margin-bottom: 6px;
-}
+  input[type=range]::-moz-range-track {
+    height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 3px;
+  }
 
-input[type=range] {
-  width: 100%;
-  margin: 0;
-  -webkit-appearance: none;
-  background: transparent;
-}
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    margin-top: -9px;
+  }
 
-input[type=range]:focus {
-  outline: none;
-}
+  input[type=range]::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+  }
 
-/* Botón */
-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 1.2rem;
-  background-color: #428bca;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
+  #sendButton {
+    margin-top: 35px;
+    font-size: 1.4rem;
+    padding: 16px 30px;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid white;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  #sendButton:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.04);
+  }
+  #sendButton:active {
+    transform: scale(0.96);
+  }
 
-/* Logo grande */
-.footer-logo {
-  text-align: center;
-  margin-bottom: 20px;
-}
+  /* SENT message */
+  #sentMessage {
+    font-size: 2.3rem;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    font-weight: bold;
+  }
 
-.footer-logo img {
-  width: 320px;
-  max-width: 70%;
-  opacity: 0.95;
-}
+  footer img {
+    width: 300px; /* 2× */
+    opacity: 0.9;
+    margin-bottom: 10px;
+  }
 
-/* Responsive */
-@media (max-height: 650px) {
-  h1 { font-size: 1.6rem; }
-  .subtitle { font-size: 1rem; }
-  .slider-labels { font-size: 1.5rem; }
-}
+  @media(max-width: 500px) {
+    footer img {
+      width: 85%;
+    }
+  }
 </style>
 </head>
 
 <body>
-
-<div class="container">
-
-  <h1>Collective Emotions</h1>
-  <p class="subtitle">How does music make you feel?</p>
+  <h1>eBrains</h1>
 
   <!-- VALENCE -->
   <div class="slider-block">
-    <label for="valence">Valence</label>
-    <div class="slider-labels">
-      <span>😢</span>
-      <span>😄</span>
-    </div>
-    <input type="range" id="valence" min="0" max="1" step="0.1" value="0.5">
+    <div>Valence</div>
+    <div class="emoji-row"><span>😢</span><span>😄</span></div>
+    <input type="range" id="valence" min="0" max="1" step="0.01" value="0.5">
   </div>
 
   <!-- AROUSAL -->
   <div class="slider-block">
-    <label for="arousal">Arousal</label>
-    <div class="slider-labels">
-      <span>😴</span>
-      <span>🤩</span>
-    </div>
-    <input type="range" id="arousal" min="0" max="1" step="0.1" value="0.5">
+    <div>Arousal</div>
+    <div class="emoji-row"><span>😴</span><span>🤩</span></div>
+    <input type="range" id="arousal" min="0" max="1" step="0.01" value="0.5">
   </div>
 
   <!-- DOMINANCE -->
   <div class="slider-block">
-    <label for="dominance">Dominance</label>
-    <div class="slider-labels">
-      <span>🙇</span>
-      <span>💪</span>
-    </div>
-    <input type="range" id="dominance" min="0" max="1" step="0.1" value="0.5">
+    <div>Dominance</div>
+    <div class="emoji-row"><span>😰</span><span>😎</span></div>
+    <input type="range" id="dominance" min="0" max="1" step="0.01" value="0.5">
   </div>
 
+  <!-- SEND -->
   <button id="sendButton">Share in real-time!</button>
+  <div id="sentMessage">✨ SENT! ✨</div>
 
-</div>
+  <footer>
+    <img src="https://github.com/mancebral/eBrains/blob/main/accelnet.png?raw=true" alt="eBrains Logo">
+  </footer>
 
-<!-- Logo al pie -->
-<div class="footer-logo">
-  <img src="https://raw.githubusercontent.com/mancebral/eBrains/main/accelnet.png" alt="accelnet logo">
-</div>
-
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://TU_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "TU_PROJECT_ID",
-    appId: "TU_APP_ID"
-  };
+/* ============ FIREBASE CONFIG ============ */
+/* ⚠️ Rellena con tus valores reales */
+const firebaseConfig = {
+  apiKey: "TU_KEY",
+  authDomain: "TU_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://ebrains-performance-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "TU_PROJECT_ID",
+  storageBucket: "TU_PROJECT_ID.appspot.com",
+  appId: "TU_APP_ID"
+};
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+/* Init */
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  const userId = 'user_' + Math.random().toString(36).substr(2, 9);
+/* Unique ID por usuario */
+let userId = localStorage.getItem("ebrains_user");
+if(!userId){
+  userId = "user_" + Math.random().toString(36).substring(2,8);
+  localStorage.setItem("ebrains_user", userId);
+}
 
-  document.getElementById('sendButton').addEventListener('click', () => {
-    const valence = parseFloat(document.getElementById('valence').value);
-    const arousal = parseFloat(document.getElementById('arousal').value);
-    const dominance = parseFloat(document.getElementById('dominance').value);
+/* Send */
+document.getElementById("sendButton").addEventListener("click", () => {
+  const valence = parseFloat(document.getElementById("valence").value);
+  const arousal = parseFloat(document.getElementById("arousal").value);
+  const dominance = parseFloat(document.getElementById("dominance").value);
 
-    db.ref('live/' + userId).set({
-      valence: valence,
-      arousal: arousal,
-      dominance: dominance,
-      ts: Date.now()
-    });
+  db.ref("live/" + userId).set({
+    valence: valence,
+    arousal: arousal,
+    dominance: dominance,
+    ts: Date.now()
+  }).then(() => {
+    const msg = document.getElementById("sentMessage");
+    msg.style.opacity = 1;
+    setTimeout(() => msg.style.opacity = 0, 1800);
 
-    console.log("Sent!");
+    /* VIBRACIÓN GRATIS EN MÓVIL 🎉 */
+    if (navigator.vibrate) {
+      navigator.vibrate(150);
+    }
   });
+});
 </script>
 
 </body>
