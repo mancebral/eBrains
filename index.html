@@ -18,6 +18,7 @@ body {
   color: white;
   text-align: center;
   padding: 20px;
+  transition: background 0.25s ease;
 }
 
 /* ----------------- Titles ----------------- */
@@ -159,7 +160,7 @@ footer img {
 
 <body>
 <h1>How does music make you feel?</h1>
-  <p>Share your emotional state as many times as you like during the performance. Your statuses will affect the visualisations in real time.</p>
+<p>Share your emotional state as many times as you like during the performance. Your statuses will affect the visualisations in real time.</p>
 
 <!-- VALENCE -->
 <div class="slider-block">
@@ -199,7 +200,7 @@ footer img {
     <span class="slider-label-emoji">⚡</span>
   </div>
   <div id="info-arousal" class="tooltip">
-    Your energy: from calma to activated (from 😴 to ⚡)
+    Your energy: from calm to activated (from 😴 to ⚡)
   </div>
 </div>
 
@@ -260,19 +261,44 @@ if(!userId){
 
 /* ---------- Tooltip JS ---------- */
 function showInfo(id) {
-  const t = document.getElementById(id);
-  t.style.display = 'block';
+  document.getElementById(id).style.display = 'block';
 }
 function hideInfo(id) {
-  const t = document.getElementById(id);
-  t.style.display = 'none';
+  document.getElementById(id).style.display = 'none';
+}
+
+/* ============ 🎨 Dynamic background ============ */
+const v = document.getElementById("valence");
+const a = document.getElementById("arousal");
+const d = document.getElementById("dominance");
+
+// <-- new
+[v,a,d].forEach(slider=>{
+  slider.addEventListener("input", updateBackground);
+});
+
+function updateBackground(){
+  const val = parseFloat(v.value);
+  const aro = parseFloat(a.value);
+  const dom = parseFloat(d.value);
+
+  // Map sliders to HSL values
+  const hue = val * 360;
+  const sat = aro * 60 + 40;
+  const lig = 30 + dom * 40;
+
+  document.body.style.background =
+    `linear-gradient(to bottom,
+      hsl(${hue},${sat}%,${lig}%),
+      hsl(${hue+30},${sat}%,${lig-10}%)
+    )`;
 }
 
 /* ---------- Send Data ---------- */
 document.getElementById("sendButton").addEventListener("click", () => {
-  const valence = parseFloat(document.getElementById("valence").value);
-  const arousal = parseFloat(document.getElementById("arousal").value);
-  const dominance = parseFloat(document.getElementById("dominance").value);
+  const valence = parseFloat(v.value);
+  const arousal = parseFloat(a.value);
+  const dominance = parseFloat(d.value);
 
   db.ref("live/" + userId).set({
     valence: valence,
@@ -284,7 +310,7 @@ document.getElementById("sendButton").addEventListener("click", () => {
     msg.style.opacity = 1;
     setTimeout(() => msg.style.opacity = 0, 1800);
 
-    if (navigator.vibrate) {
+    if(navigator.vibrate){
       navigator.vibrate(150);
     }
   });
@@ -293,20 +319,3 @@ document.getElementById("sendButton").addEventListener("click", () => {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
